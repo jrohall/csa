@@ -1,30 +1,21 @@
-import mongoose from "mongoose";
+import mongoose, { Schema, Document } from 'mongoose';
 
-export interface LocDocument extends mongoose.Document {
+export interface ILoc extends Document {
     name: string;
-    address: string;
+    address: object;
     description?: string;
     website?: string;
     tags?: string[];
 }
 
-const locSchema = new mongoose.Schema<LocDocument>({
-    name: String,
-    address: String,
-    description: String,
-    website: String,
-    tags: [String]
-})
+const LocSchema: Schema = new Schema({
+    name: { type: String, required: true, unique: true },
+    address: { type: Object, required: true },
+    description: { type: String },
+    website: { type: String },
+    tags: { type: [String] }
+});
 
-locSchema.pre("save", async function (next) {
-    if(!this.isModified("name") && !this.isModified("address")) {
-        next();
-    }
-})
+const LocModel = mongoose.model<ILoc>('Location', LocSchema);
 
-locSchema.methods.compareAddress = function (address: string) {
-    return this.address.toLowerCase() === address.toLowerCase();
-}
-
-const LocModel = mongoose.model<LocDocument>("Loc", locSchema);
 export default LocModel;

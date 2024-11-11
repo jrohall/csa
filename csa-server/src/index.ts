@@ -7,7 +7,7 @@ import errorHandler from "./middleware/errorHandler";
 import cookieParser from "cookie-parser";
 import catchErrors from "./utils/catchErrors";
 import { OK } from "./constants/http";
-
+import locRoutes from './routes/loc.route';
 
 
 const app = express();
@@ -21,6 +21,7 @@ app.use(
     })
 )
 app.use(cookieParser());
+app.use('/api', locRoutes);
 
 app.get("/", (req, res, next) => {
         res.status(OK).json({
@@ -31,8 +32,7 @@ app.get("/", (req, res, next) => {
 
 app.get('/api/get-api-key', (req, res) => {
     res.json({ apiKey: process.env.GMAPS_API_KEY });
-  });
-  
+});
 
 app.use(errorHandler);
 

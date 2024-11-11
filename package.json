@@ -2,5 +2,8 @@
   "dependencies": {
     "@googlemaps/js-api-loader": "^1.16.8",
     "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "@types/google.maps": "^3.58.1"
   }
 }

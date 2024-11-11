@@ -25,3 +25,7 @@ export const createLoc = async (data: LocParams) => {
     // return new location
     return newLoc;
 }
+
+export const getAllLocations = async () => {
+    return await LocModel.find({});
+};
