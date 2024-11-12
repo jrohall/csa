@@ -3,20 +3,13 @@
 import React, { useEffect, useState } from 'react';
 import { Loader } from '@googlemaps/js-api-loader';
 import Navbar from '@/components/navbar';
+import LocationSidebar from '@/components/gdsidebar';
 
 export default function Map() {
     const mapRef = React.useRef<HTMLDivElement>(null);
     const [GMAPS_API, setApiKey] = useState('');
-    const [locations, setLocations] = useState([]);
-    const CONFIGURATION = {
-        "locations": [
-          {"title":"5931 Greenville Ave","address1":"5931 Greenville Ave","address2":"Dallas, TX 75206, USA","coords":{"lat":32.857958380150926,"lng":-96.7689238932541},"placeId":"Eio1OTMxIEdyZWVudmlsbGUgQXZlLCBEYWxsYXMsIFRYIDc1MjA2LCBVU0EiMRIvChQKEgnJ7zTcmJ9OhhEMr2VZikAovRCrLioUChIJKRprMI-fToYRFqRKGb3CCHY"},
-          {"title":"7777 Forest Ln","address1":"7777 Forest Ln","address2":"Dallas, TX 75230, USA","coords":{"lat":32.91153776754813,"lng":-96.77404679140169},"placeId":"ChIJH2yr7RghTIYRlib-UoXJels"}
-        ],
-        "mapOptions": {"center":{"lat":38.0,"lng":-100.0},"fullscreenControl":true,"mapTypeControl":false,"streetViewControl":false,"zoom":4,"zoomControl":true,"maxZoom":17,"mapId":""},
-        "mapsApiKey": "AIzaSyBeFVfs0qfgTKEvmhNpfoANZnYPMjaEpxM",
-        "capabilities": {"input":true,"autocomplete":true,"directions":false,"distanceMatrix":true,"details":false,"actions":false}
-      };
+    const [locations, setLocations] = useState<any[]>([]);
+
 
     useEffect(() => {
         // grabbing the api key
@@ -36,6 +29,8 @@ export default function Map() {
                 setLocations(data);
         });
     }, []);
+    console.log("LOCATIONS: ", locations);
+    
 
     // init the map only once the GMAPS_API state is updated
     useEffect(() => {
@@ -46,11 +41,15 @@ export default function Map() {
                     version: "weekly",
                 });
                 const { Map } = await loader.importLibrary("maps");
+                const { AdvancedMarkerElement, PinElement } = await loader.importLibrary("marker");
+                const infoWindow = new google.maps.InfoWindow();
+                const {ColorScheme} = await loader.importLibrary("core")
 
                 const mapOptions: google.maps.MapOptions = {
                     center: { lat: 32.7767, lng: -96.7970 },
                     zoom: 13,
-                    mapId: "d454226efaad80dd",
+                    mapId: "d454226efaad80dd", // create a custom map via google cloud
+                    //colorScheme: ColorScheme.FOLLOW_SYSTEM
                 };
 
                 const map = new Map(mapRef.current as HTMLElement, mapOptions);
@@ -60,12 +59,42 @@ export default function Map() {
                     mapTypeControl: false,
                     streetViewControl: false,
                 });
+                
 
-                // configure the locator when the map is initialized
-                const locator = document.querySelector('gmpx-store-locator') as any;
-                if (locator) {
-                    locator.configureFromQuickBuilder(CONFIGURATION);
-                }
+                console.log("LOCATIONS CHECK: ", locations);
+                locations.forEach((location) => {
+                    const procCoords = {
+                        lat: location.address.location.latitude,
+                        lng: location.address.location.longitude,
+                    };
+                    console.log("PROCESSING LOCATION: ", location);
+
+                    const pinContent = new PinElement({
+                        background: 'Black',
+                        borderColor: 'Black',
+                        glyphColor: 'White',
+                    });
+
+                    const marker = new AdvancedMarkerElement({
+                        map,
+                        position: procCoords,
+                        content: pinContent.element,
+                        title: location.name,
+                        gmpClickable: true,
+                    });
+
+                    marker.addListener('click', ({ domEvent }: any) => {
+                        const { target } = domEvent;
+                        infoWindow.close();
+                        const contentDiv = document.createElement('div');
+                        contentDiv.style.color = 'black';
+                        contentDiv.innerText = marker.title;
+                        infoWindow.setContent(contentDiv);
+                        infoWindow.open(marker.map, marker);
+                        map.panTo(marker.position as google.maps.LatLng);
+                    });
+                });
+
             };
 
             initMap();
@@ -77,8 +106,8 @@ export default function Map() {
             <div>
                 <Navbar></Navbar>
                 <div style={{ height: "100vh", width: "100vw" }} ref={mapRef} />
+                <LocationSidebar locations={locations} />
             </div>
-          <script type="module" src="https://unpkg.com/@googlemaps/extended-component-library@0.6"></script>
         </div>
     );
 }
