@@ -1,7 +1,7 @@
 
 # Center For Societal Aspiration Web Application
 
-This is a project created by jrohall to prototype what the Center for Societal Aspiration web application would look like if transferred to a MERN stack. Please note that this project is in its infancy and has yet to be dockerized. **You will need to add a database yourself, I recommend installing mongoDB Compass to managed the database.**
+This is a project created by jrohall to prototype what the Center for Societal Aspiration web application would look like if transferred to a MERN stack. Please note that this project is in its infancy and has yet to be dockerized. **You will need to add a database yourself, I recommend installing mongoDB Compass to manage the database.**
 
 
 ## Environment Variables
@@ -116,5 +116,5 @@ You should see where the client is being hosted, access it using the web browser
 - Pins do not always show on map for first refresh
 - Company's Google Maps API needs to be added
 - Mobile client has yet to be set up
-- I am not using next's efficiently, could definitely be improved.
+- I am not using next's routing efficiently, could definitely be improved.
 
