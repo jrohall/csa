@@ -125,5 +125,5 @@ This is how I have designed the system, it is definitely a work in progress
 
 ## Cost Estimation
 
-I made a document for cost estimation for the company [here]([https://example.com](https://docs.google.com/spreadsheets/d/17oV-C9fXoe3hdck5DSX9MLuJKNzG6dOC3c3lGZm-t8c/edit?usp=sharing))
+I made a document for cost estimation for the company [here](https://docs.google.com/spreadsheets/d/17oV-C9fXoe3hdck5DSX9MLuJKNzG6dOC3c3lGZm-t8c/edit?usp=sharing)
 
