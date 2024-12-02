@@ -120,7 +120,10 @@ You should see where the client is being hosted, access it using the web browser
 
 ## Architecture Overview
 
-This is how I have designed the system, it does not mean that it is right or perfect.
+This is how I have designed the system, it is definitely a work in progress
 <img width="479" alt="Screenshot 2024-12-02 at 3 11 00 PM" src="https://github.com/user-attachments/assets/2f5efd33-9b4f-4cf8-88ba-e0e1bdace644">
 
+## Cost Estimation
+
+I made a document for cost estimation for the company [here]([https://example.com](https://docs.google.com/spreadsheets/d/17oV-C9fXoe3hdck5DSX9MLuJKNzG6dOC3c3lGZm-t8c/edit?usp=sharing))
 
