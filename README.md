@@ -118,3 +118,9 @@ You should see where the client is being hosted, access it using the web browser
 - Mobile client has yet to be set up
 - I am not using next's routing efficiently, could definitely be improved.
 
+## Architecture Overview
+
+This is how I have designed the system, it does not mean that it is right or perfect.
+<img width="479" alt="Screenshot 2024-12-02 at 3 11 00 PM" src="https://github.com/user-attachments/assets/2f5efd33-9b4f-4cf8-88ba-e0e1bdace644">
+
+
