@@ -105,8 +105,10 @@ export default function Map() {
         <div>
             <div>
                 <Navbar></Navbar>
-                <div style={{ height: "100vh", width: "100vw" }} ref={mapRef} />
-                <LocationSidebar locations={locations} />
+                <div className="">
+                    <LocationSidebar locations={locations} />
+                    <div className='w-full h-screen' ref={mapRef} />
+                </div>
             </div>
         </div>
     );
